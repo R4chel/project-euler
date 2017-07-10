@@ -1,0 +1,8 @@
+(jbuild_version 1)
+
+(executables
+  ((names (problems))
+  (libraries (core
+  ))
+  (preprocess (pps (ppx_jane ppx_driver.runner)))
+)) 
