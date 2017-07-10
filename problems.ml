@@ -37,8 +37,47 @@ let problem_2 () =
   | Finished (values, result) -> failwith "oops"
 ;;
 
+let problem_6 n =
+  let sum, squares_sum =
+    List.fold (List.range 0 (n + 1)) ~init:(0, 0) ~f:(fun (sum, squares_sum) i ->
+       ( sum + i, squares_sum + (i * i))  
+      )
+  in
+  (sum * sum) - squares_sum
+;;
+
+let problem_14 () = 
+  let rec collatz values n =
+    match Int.Map.find values n with
+    | Some result -> (values, result)
+    | None ->
+      let values, result = 
+        if n % 2 = 0
+        then collatz values (n/2)
+        else collatz values (3 * n + 1)
+      in
+      let values = Int.Map.add values ~key:n ~data:(result + 1) in
+      (values, result + 1)
+  in
+  let values = Int.Map.of_alist_exn [(1, 1)] in
+  let values, max_index, max_result = 
+    List.fold (List.range 2 1_000_000) ~init:(values, 1, 1) ~f:(fun (values, max_index, max_result) i ->
+      let values, result = collatz values i in
+      if result > max_result
+      then (values, i, result)
+      else (values, max_index, max_result)
+    )
+  in
+  max_index
+;;
+
 let () =
   (* let problem_1 = problem_1 1000 in *)
   (* Out_channel.output_string stdout ("Problem 1: " ^ (Int.to_string problem_1)); *)
-  let problem_2 = problem_2 () in
-  Out_channel.output_string stdout ("Problem 2: " ^ (Int.to_string problem_2));
+  (* let problem_2 = problem_2 () in *)
+  (* Out_channel.output_string stdout ("Problem 2: " ^ (Int.to_string problem_2)); *)
+  let problem_6 = problem_6 100 in
+  Out_channel.output_string stdout ("Problem 6: " ^ (Int.to_string problem_6));
+  (* let problem_14 = problem_14 () in *)
+  (* Out_channel.output_string stdout ("Problem 14: " ^ (Int.to_string problem_14)); *)
+;;
