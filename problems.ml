@@ -71,13 +71,35 @@ let problem_14 () =
   max_index
 ;;
 
+let problem_15 () =
+  let n_choose_k n k =
+    let numerator =
+      List.fold
+        (List.range ~stop:`inclusive (n-k+1) n)
+        ~init:(Big_int.big_int_of_int 1)
+        ~f:(fun prod i -> Big_int.mult_int_big_int i prod)
+    in
+    let denominator = 
+      List.fold
+        (List.range ~stop:`inclusive 1 k)       
+        ~init:(Big_int.big_int_of_int 1)
+        ~f:(fun prod i -> Big_int.mult_int_big_int i prod)
+    in
+    Big_int.div_big_int numerator denominator
+    |> Big_int.int_of_big_int
+  in
+  n_choose_k 40 20
+;;
+
 let () =
   (* let problem_1 = problem_1 1000 in *)
   (* Out_channel.output_string stdout ("Problem 1: " ^ (Int.to_string problem_1)); *)
   (* let problem_2 = problem_2 () in *)
   (* Out_channel.output_string stdout ("Problem 2: " ^ (Int.to_string problem_2)); *)
-  let problem_6 = problem_6 100 in
-  Out_channel.output_string stdout ("Problem 6: " ^ (Int.to_string problem_6));
+  (* let problem_6 = problem_6 100 in *)
+  (* Out_channel.output_string stdout ("Problem 6: " ^ (Int.to_string problem_6)); *)
   (* let problem_14 = problem_14 () in *)
   (* Out_channel.output_string stdout ("Problem 14: " ^ (Int.to_string problem_14)); *)
+  let problem_15 = problem_15 () in
+  Out_channel.output_string stdout ("Problem 15: " ^ (Int.to_string problem_15));
 ;;
