@@ -46,6 +46,10 @@ let problem_6 n =
   (sum * sum) - squares_sum
 ;;
 
+let problem_7 () =
+  Primes.nth_prime 10_001
+;;
+
 let problem_8 n =
   let s =
     "73167176531330624919225119674426574742355349194934
@@ -134,8 +138,10 @@ let () =
   (* Out_channel.output_string stdout ("Problem 2: " ^ (Int.to_string problem_2)); *)
   (* let problem_6 = problem_6 100 in *)
   (* Out_channel.output_string stdout ("Problem 6: " ^ (Int.to_string problem_6)); *)
-  let problem_8 = problem_8 13 in
-  Out_channel.output_string stdout ("Problem 8: " ^ (Int.to_string problem_8));
+  let problem_7 = problem_7 () in
+  Out_channel.output_string stdout ("Problem 7: " ^ (Int.to_string problem_7));
+  (* let problem_8 = problem_8 4 in *)
+  (* Out_channel.output_string stdout ("Problem 8: " ^ (Int.to_string problem_8)); *)
   (* let problem_14 = problem_14 () in *)
   (* Out_channel.output_string stdout ("Problem 14: " ^ (Int.to_string problem_14)); *)
   (* let problem_15 = problem_15 () in *)
