@@ -19,7 +19,15 @@ let next_prime primes =
     | FS.Stopped_early primes -> primes
 ;;
 
-let nth_prime n = 
+let primes_less_then n =
+  List.fold (List.range 2 n) ~init:(Int.Set.empty) ~f:(fun primes n -> 
+    match Set.find primes ~f:(fun p -> n % p = 0) with
+    | Some factor -> primes
+    | None -> (Int.Set.add primes n)
+  )
+;;
+
+let nth_prime n =
   let primes =
     List.fold (List.range 0 n) ~init:Int.Set.empty ~f:(fun primes i ->
         next_prime primes 
@@ -29,9 +37,15 @@ let nth_prime n =
   Set.max_elt_exn primes
 ;;
 
-(* let largest_prime_factor primes n = *)
-(*   if Set.mem primes n *)
-(*   then n *)
-(*   else ( *)
-    
-(*   ) *)
+let rec largest_prime_factor primes n =
+  match Set.find primes ~f:(fun p -> n % p = 0) with
+  | Some factor ->
+    Int.max factor (largest_prime_factor primes (Int.(/) n factor))
+  | None ->
+    if n = 1 then 1 else largest_prime_factor (next_prime primes) n
+;;
+
+let sum_less_than n =
+  let primes = primes_less_then n in
+  Set.fold primes ~init:0 ~f:Int.(+)
+;;

@@ -37,6 +37,9 @@ let problem_2 () =
   | Finished (values, result) -> failwith "oops"
 ;;
 
+let problem_3 () =
+  Primes.largest_prime_factor Int.Set.empty 600851475143
+
 let problem_6 n =
   let sum, squares_sum =
     List.fold (List.range 0 (n + 1)) ~init:(0, 0) ~f:(fun (sum, squares_sum) i ->
@@ -86,6 +89,10 @@ let problem_8 n =
   )
 ;;
 
+let problem_10 () =
+  Primes.sum_less_than 2_000_000
+;;
+
 let problem_14 () = 
   let rec collatz values n =
     match Int.Map.find values n with
@@ -131,19 +138,41 @@ let problem_15 () =
   n_choose_k 40 20
 ;;
 
+let problem_30 () : int =
+  let nums =
+    List.filter (List.range 2 (Int.pow 10 6)) ~f:(fun n ->
+      let digit_sum = 
+        Int.to_string n
+      |> String.to_list
+      |> List.map ~f:Char.get_digit_exn
+      |> List.map ~f:(fun i -> Int.pow i 5)
+      |> List.fold ~init:0 ~f:Int.(+)
+      in
+      digit_sum = n 
+      )
+  in
+  List.fold nums ~init:0 ~f:Int.(+)
+;;
+
 let () =
   (* let problem_1 = problem_1 1000 in *)
   (* Out_channel.output_string stdout ("Problem 1: " ^ (Int.to_string problem_1)); *)
   (* let problem_2 = problem_2 () in *)
   (* Out_channel.output_string stdout ("Problem 2: " ^ (Int.to_string problem_2)); *)
+  (* let problem_3 = problem_3 () in *)
+  (* Out_channel.output_string stdout ("Problem 3: " ^ (Int.to_string problem_3)); *)
   (* let problem_6 = problem_6 100 in *)
   (* Out_channel.output_string stdout ("Problem 6: " ^ (Int.to_string problem_6)); *)
-  let problem_7 = problem_7 () in
-  Out_channel.output_string stdout ("Problem 7: " ^ (Int.to_string problem_7));
+  (* let problem_7 = problem_7 () in *)
+  (* Out_channel.output_string stdout ("Problem 7: " ^ (Int.to_string problem_7)); *)
   (* let problem_8 = problem_8 4 in *)
   (* Out_channel.output_string stdout ("Problem 8: " ^ (Int.to_string problem_8)); *)
+  (* let problem_10 = problem_10 () in *)
+  (* Out_channel.output_string stdout ("Problem 10: " ^ (Int.to_string problem_10)); *)
   (* let problem_14 = problem_14 () in *)
   (* Out_channel.output_string stdout ("Problem 14: " ^ (Int.to_string problem_14)); *)
   (* let problem_15 = problem_15 () in *)
   (* Out_channel.output_string stdout ("Problem 15: " ^ (Int.to_string problem_15)); *)
+  let problem_30 = problem_30 () in
+  Out_channel.output_string stdout ("Problem 30: " ^ (Int.to_string problem_30));
 ;;
