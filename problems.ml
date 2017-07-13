@@ -89,6 +89,23 @@ let problem_8 n =
   )
 ;;
 
+let problem_9 () =
+  List.find_map (List.range 1 1_000) ~f:(fun a  ->
+      List.find_map (List.range 1 (1_000 - a)) ~f:(fun b ->
+          let c = 1000 - a - b in
+          if Utils.is_pythagorean_triplet a b c 
+          then (
+            Utils.print_int a;
+            Utils.print_int b;
+            Utils.print_int c;
+            Some ( a * b * c)
+          )
+          else None
+        )
+    )
+  |> Option.value ~default:(-1)
+;;
+
 let problem_10 () =
   Primes.sum_less_than 2_000_000
 ;;
@@ -154,6 +171,21 @@ let problem_30 () : int =
   List.fold nums ~init:0 ~f:Int.(+)
 ;;
 
+
+let problem_34 () =
+  let is_digit_factorial n =
+    let sum =
+      Primes.int_to_digits n 
+    |> List.map ~f:Utils.factorial
+    |> List.fold ~init:0 ~f:Int.(+)
+    in
+    Int.equal sum n
+  in
+  let max = (Utils.factorial 9) * 100 in
+  List.filter (List.range 10 max) ~f:is_digit_factorial
+  |> List.fold ~init:0 ~f:Int.(+)
+;;
+
 let problem_36 () =
   Primes.find_truncatable_primes_v2 ()
 ;;
@@ -175,7 +207,6 @@ let problem_45 () =
   find_intersection 300
 ;;
 
-
 let () =
   (* let problem_1 = problem_1 1000 in *)
   (* Out_channel.output_string stdout ("Problem 1: " ^ (Int.to_string problem_1)); *)
@@ -189,6 +220,8 @@ let () =
   (* Out_channel.output_string stdout ("Problem 7: " ^ (Int.to_string problem_7)); *)
   (* let problem_8 = problem_8 4 in *)
   (* Out_channel.output_string stdout ("Problem 8: " ^ (Int.to_string problem_8)); *)
+  let problem_9 = problem_9 () in
+  Out_channel.output_string stdout ("Problem 9: " ^ (Int.to_string problem_9));
   (* let problem_10 = problem_10 () in *)
   (* Out_channel.output_string stdout ("Problem 10: " ^ (Int.to_string problem_10)); *)
   (* let problem_14 = problem_14 () in *)
@@ -199,6 +232,8 @@ let () =
   (* Out_channel.output_string stdout ("Problem 30: " ^ (Int.to_string problem_30)); *)
   (* let problem_36 = problem_36 () in *)
   (* Out_channel.output_string stdout ("Problem 36: " ^ (Int.to_string problem_36)); *)
-  let problem_45 = problem_45 () in
-  Out_channel.output_string stdout ("Problem 45: " ^ (Int.to_string problem_45));
+  (* let problem_34 = problem_34 () in *)
+  (* Out_channel.output_string stdout ("Problem 34: " ^ (Int.to_string problem_34)); *)
+  (* let problem_45 = problem_45 () in *)
+  (* Out_channel.output_string stdout ("Problem 45: " ^ (Int.to_string problem_45)); *)
 ;;
