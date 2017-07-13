@@ -149,9 +149,13 @@ let problem_30 () : int =
       |> List.fold ~init:0 ~f:Int.(+)
       in
       digit_sum = n 
-      )
+    )
   in
   List.fold nums ~init:0 ~f:Int.(+)
+;;
+
+let problem_36 () =
+  Primes.find_truncatable_primes_v2 ()
 ;;
 
 let () =
@@ -173,6 +177,8 @@ let () =
   (* Out_channel.output_string stdout ("Problem 14: " ^ (Int.to_string problem_14)); *)
   (* let problem_15 = problem_15 () in *)
   (* Out_channel.output_string stdout ("Problem 15: " ^ (Int.to_string problem_15)); *)
-  let problem_30 = problem_30 () in
-  Out_channel.output_string stdout ("Problem 30: " ^ (Int.to_string problem_30));
+  (* let problem_30 = problem_30 () in *)
+  (* Out_channel.output_string stdout ("Problem 30: " ^ (Int.to_string problem_30)); *)
+  let problem_36 = problem_36 () in
+  Out_channel.output_string stdout ("Problem 36: " ^ (Int.to_string problem_36));
 ;;
