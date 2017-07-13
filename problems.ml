@@ -158,6 +158,24 @@ let problem_36 () =
   Primes.find_truncatable_primes_v2 ()
 ;;
 
+let problem_45 () =
+  let rec find_intersection n = 
+    let nums = List.range 1 n |> Int.Set.of_list in
+    let triangles = Int.Set.map nums ~f:(fun n -> n * (n + 1) / 2) in
+    let pentagons = Int.Set.map nums ~f:(fun n -> n * (3*n - 1) / 2) in
+    let hexagons  = Int.Set.map nums ~f:(fun n -> n * (2*n - 1) ) in
+    let intersection =
+      Set.inter triangles pentagons
+      |> Set.inter hexagons
+    in
+    match Set.nth intersection 2 with
+    | Some value -> value
+    | None -> find_intersection ( n * 2 )
+  in
+  find_intersection 300
+;;
+
+
 let () =
   (* let problem_1 = problem_1 1000 in *)
   (* Out_channel.output_string stdout ("Problem 1: " ^ (Int.to_string problem_1)); *)
@@ -179,6 +197,8 @@ let () =
   (* Out_channel.output_string stdout ("Problem 15: " ^ (Int.to_string problem_15)); *)
   (* let problem_30 = problem_30 () in *)
   (* Out_channel.output_string stdout ("Problem 30: " ^ (Int.to_string problem_30)); *)
-  let problem_36 = problem_36 () in
-  Out_channel.output_string stdout ("Problem 36: " ^ (Int.to_string problem_36));
+  (* let problem_36 = problem_36 () in *)
+  (* Out_channel.output_string stdout ("Problem 36: " ^ (Int.to_string problem_36)); *)
+  let problem_45 = problem_45 () in
+  Out_channel.output_string stdout ("Problem 45: " ^ (Int.to_string problem_45));
 ;;
